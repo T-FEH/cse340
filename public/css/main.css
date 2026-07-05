@@ -1,30 +1,255 @@
-html, body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+/* ==========================================================================
+   CSE 340 Service Network - Site Styles
+   ========================================================================== */
+
+:root {
+    --color-primary: #1f5c73;
+    --color-primary-dark: #123244;
+    --color-accent: #ffcb69;
+    --color-bg: #f5f7fa;
+    --color-surface: #ffffff;
+    --color-text: #1f2933;
+    --color-text-muted: #4b5563;
+    --color-border: #dbe2ea;
+
+    --font-family-base: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(18, 50, 68, 0.08);
+    --shadow-hover: 0 4px 12px rgba(18, 50, 68, 0.12);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-base);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ---- Navigation ---------------------------------------------------- */
+
+nav {
+    background-color: var(--color-primary-dark);
+    padding: 1rem 1.5rem;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    max-width: 1100px;
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+}
+
+nav li {
+    display: block;
+}
+
+nav a {
+    display: inline-block;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.35rem 0.05rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+nav a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+}
+
+nav a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+/* ---- Main content ---------------------------------------------------- */
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 900px;
+    margin-inline: auto;
+    padding: 2.5rem 1.5rem 3.5rem;
+}
+
+h1 {
+    font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem);
+    color: var(--color-primary-dark);
+    margin: 0 0 0.5rem;
+}
+
+h2 {
+    font-size: 1.35rem;
+    color: var(--color-primary);
+    margin: 1.75rem 0 0.75rem;
+}
+
+p {
+    max-width: 65ch;
+    color: var(--color-text-muted);
+    margin: 0 0 1rem;
+}
+
+/* ---- Home page hero ---------------------------------------------------- */
+
+.hero {
+    text-align: center;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem 1.5rem;
+    margin-top: 1rem;
+}
+
+.hero p {
+    margin-inline: auto;
+}
+
+.main-logo {
+    display: block;
+    width: min(280px, 100%);
+    margin: 1.5rem auto 0;
+    border-radius: 8px;
+}
+
+/* ---- Generic content lists (projects, categories) ---------------------- */
+
+main > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+}
+
+main > ul > li {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 0.9rem 1.15rem;
+}
+
+/* ---- Organizations page cards ------------------------------------------ */
+
+.org-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.org-card {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1rem 1.25rem;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.org-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.org-logo {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    object-fit: contain;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.4rem;
+}
+
+.org-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.org-info strong {
+    color: var(--color-primary-dark);
+    font-size: 1.05rem;
+}
+
+.org-info span {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* ---- Footer -------------------------------------------------------- */
+
+footer {
+    background-color: var(--color-primary-dark);
+    color: #e4ecf1;
+    text-align: center;
+    padding: 1.25rem 1rem;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 0;
+    color: inherit;
+}
+
+/* ---- Responsive adjustments ------------------------------------------ */
+
+@media (max-width: 600px) {
     nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+        padding: 0.85rem 1.25rem;
+    }
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+    nav ul {
+        justify-content: center;
+        text-align: center;
+        gap: 0.5rem 1.25rem;
+    }
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+    main {
+        padding: 1.75rem 1.25rem 2.5rem;
+    }
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
+    .org-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .org-info {
+        align-items: center;
     }
 }
