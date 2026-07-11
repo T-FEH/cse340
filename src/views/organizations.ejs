@@ -5,27 +5,16 @@
 
     <p>Here are a few of our partner organizations:</p>
     <ul class="org-list">
+        <% organizations.forEach((org) => { %>
         <li class="org-card">
-            <img class="org-logo" src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo">
+            <img class="org-logo" src="/images/<%= org.logo_filename %>" alt="<%= org.name %> logo">
             <div class="org-info">
-                <strong>BrightFuture Builders</strong>
-                <span>info@brightfuture.org</span>
+                <strong><%= org.name %></strong>
+                <p><%= org.description %></p>
+                <span><%= org.contact_email %></span>
             </div>
         </li>
-        <li class="org-card">
-            <img class="org-logo" src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo">
-            <div class="org-info">
-                <strong>GreenHarvest Growers</strong>
-                <span>contact@greenharvest.org</span>
-            </div>
-        </li>
-        <li class="org-card">
-            <img class="org-logo" src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo">
-            <div class="org-info">
-                <strong>UnityServe Volunteers</strong>
-                <span>hello@unityserve.org</span>
-            </div>
-        </li>
+        <% }) %>
     </ul>
 
 </main>
