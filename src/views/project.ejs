@@ -8,6 +8,14 @@
     <p><strong>Date:</strong> <%= project.date.toLocaleDateString() %></p>
     <p><strong>Location:</strong> <%= project.location %></p>
     <p><strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+
+    <% if (categories.length > 0) { %>
+    <ul class="tag-list">
+        <% categories.forEach((category) => { %>
+        <li><a class="tag" href="/category/<%= category.category_id %>"><%= category.name %></a></li>
+        <% }) %>
+    </ul>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>

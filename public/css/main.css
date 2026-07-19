@@ -157,6 +157,38 @@ main > ul > li {
     padding: 0.9rem 1.15rem;
 }
 
+/* ---- Category tags (service project details page) ---------------------- */
+
+.tag-list {
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+}
+
+.tag:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.tag:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
 /* ---- Organizations page cards ------------------------------------------ */
 
 .org-list {
