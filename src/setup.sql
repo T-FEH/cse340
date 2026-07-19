@@ -17,16 +17,17 @@ VALUES
 -- Create the service_project table
 CREATE TABLE service_project (
     service_project_id SERIAL PRIMARY KEY,
+    organization_id INTEGER NOT NULL REFERENCES organization(organization_id),
     name VARCHAR(150) NOT NULL,
     description TEXT NOT NULL
 );
 
--- Insert sample service projects
-INSERT INTO service_project (name, description)
+-- Insert sample service projects, each associated with its sponsoring organization
+INSERT INTO service_project (organization_id, name, description)
 VALUES
-    ('Park Cleanup', 'Join us to clean up local parks and make them beautiful!'),
-    ('Food Drive', 'Help collect and distribute food to those in need.'),
-    ('Community Tutoring', 'Volunteer to tutor students in various subjects.');
+    ((SELECT organization_id FROM organization WHERE name = 'BrightFuture Builders'), 'Park Cleanup', 'Join us to clean up local parks and make them beautiful!'),
+    ((SELECT organization_id FROM organization WHERE name = 'GreenHarvest Growers'), 'Food Drive', 'Help collect and distribute food to those in need.'),
+    ((SELECT organization_id FROM organization WHERE name = 'UnityServe Volunteers'), 'Community Tutoring', 'Volunteer to tutor students in various subjects.');
 
 -- Create the category table
 CREATE TABLE category (

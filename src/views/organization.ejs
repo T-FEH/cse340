@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+
+<main>
+    <h2><%= organizationDetails.name %></h2>
+
+    <img class="main-logo" src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
+
+    <p><%= organizationDetails.description %></p>
+
+    <h2>Service Projects</h2>
+    <% if (projects.length > 0) { %>
+    <ul>
+        <% projects.forEach((project) => { %>
+        <li><a href="/project/<%= project.service_project_id %>"><%= project.name %></a> - <%= project.description %></li>
+        <% }) %>
+    </ul>
+    <% } else { %>
+    <p>This organization does not have any service projects yet.</p>
+    <% } %>
+</main>
+
+<%- include('partials/footer') %>

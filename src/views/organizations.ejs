@@ -9,7 +9,7 @@
         <li class="org-card">
             <img class="org-logo" src="/images/<%= org.logo_filename %>" alt="<%= org.name %> logo">
             <div class="org-info">
-                <strong><%= org.name %></strong>
+                <strong><a href="/organization/<%= org.organization_id %>"><%= org.name %></a></strong>
                 <p><%= org.description %></p>
                 <span><%= org.contact_email %></span>
             </div>
