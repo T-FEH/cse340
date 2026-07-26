@@ -122,4 +122,33 @@ const createProject = async (title, description, location, date, organizationId)
     return result.rows[0].service_project_id;
 };
 
-export {getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails, getProjectsByCategoryId, createProject}
+/**
+ * Updates an existing service project in the database.
+ * @param {string} id - The id of the service project to update.
+ * @param {string} title - The title of the service project.
+ * @param {string} description - A description of the service project.
+ * @param {string} location - The location of the service project.
+ * @param {string} date - The date of the service project.
+ * @param {string} organizationId - The id of the sponsoring organization.
+ */
+const updateProject = async (id, title, description, location, date, organizationId) => {
+    const query = `
+      UPDATE service_project
+      SET organization_id = $2, name = $3, description = $4, date = $5, location = $6
+      WHERE service_project_id = $1
+      RETURNING service_project_id
+    `;
+
+    const queryParams = [id, organizationId, title, description, date, location];
+    const result = await db.query(query, queryParams);
+
+    if (result.rows.length === 0) {
+        throw new Error('Failed to update service project');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Updated service project with ID:', id);
+    }
+};
+
+export {getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails, getProjectsByCategoryId, createProject, updateProject}
