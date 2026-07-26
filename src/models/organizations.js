@@ -59,4 +59,27 @@ const createOrganization = async (name, description, contactEmail, logoFilename)
     return result.rows[0].organization_id;
 };
 
-export {getAllOrganizations, getOrganizationDetails, createOrganization}
+/**
+ * Updates an existing organization in the database.
+ * @param {string} id - The id of the organization to update.
+ * @param {string} name - The name of the organization.
+ * @param {string} description - A description of the organization.
+ * @param {string} contactEmail - The contact email for the organization.
+ * @param {string} logoFilename - The filename of the organization's logo.
+ */
+const updateOrganization = async (id, name, description, contactEmail, logoFilename) => {
+    const query = `
+      UPDATE organization
+      SET name = $2, description = $3, contact_email = $4, logo_filename = $5
+      WHERE organization_id = $1
+    `;
+
+    const queryParams = [id, name, description, contactEmail, logoFilename];
+    await db.query(query, queryParams);
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Updated organization with ID:', id);
+    }
+};
+
+export {getAllOrganizations, getOrganizationDetails, createOrganization, updateOrganization}

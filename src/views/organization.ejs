@@ -3,6 +3,8 @@
 <main>
     <h2><%= organizationDetails.name %></h2>
 
+    <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit</a></p>
+
     <img class="main-logo" src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
 
     <p><%= organizationDetails.description %></p>
