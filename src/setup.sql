@@ -1,10 +1,11 @@
 -- Create the organization table
 CREATE TABLE organization (
-    organization_id SERIAL PRIMARY KEY,
+    organization_id SERIAL,
     name VARCHAR(150) NOT NULL,
     description TEXT NOT NULL,
     contact_email VARCHAR(255) NOT NULL,
-    logo_filename VARCHAR(255) NOT NULL
+    logo_filename VARCHAR(255) NOT NULL,
+    CONSTRAINT organization_pkey PRIMARY KEY (organization_id)
 );
 
 -- Insert sample organizations
@@ -16,12 +17,14 @@ VALUES
 
 -- Create the service_project table
 CREATE TABLE service_project (
-    service_project_id SERIAL PRIMARY KEY,
-    organization_id INTEGER NOT NULL REFERENCES organization(organization_id),
+    service_project_id SERIAL,
+    organization_id INTEGER NOT NULL,
     name VARCHAR(150) NOT NULL,
     description TEXT NOT NULL,
     date DATE NOT NULL,
-    location VARCHAR(255) NOT NULL
+    location VARCHAR(255) NOT NULL,
+    CONSTRAINT service_project_pkey PRIMARY KEY (service_project_id),
+    CONSTRAINT service_project_organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organization(organization_id)
 );
 
 -- Insert sample service projects, each associated with its sponsoring organization
@@ -46,8 +49,10 @@ VALUES
 
 -- Create the category table
 CREATE TABLE category (
-    category_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE
+    category_id SERIAL,
+    name VARCHAR(100) NOT NULL,
+    CONSTRAINT category_pkey PRIMARY KEY (category_id),
+    CONSTRAINT category_name_key UNIQUE (name)
 );
 
 -- Insert sample categories
@@ -61,9 +66,11 @@ VALUES
 -- Create the project_category join table to model the many-to-many
 -- relationship between service_project and category
 CREATE TABLE project_category (
-    service_project_id INTEGER NOT NULL REFERENCES service_project(service_project_id) ON DELETE CASCADE,
-    category_id INTEGER NOT NULL REFERENCES category(category_id) ON DELETE CASCADE,
-    PRIMARY KEY (service_project_id, category_id)
+    service_project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    CONSTRAINT project_category_pkey PRIMARY KEY (service_project_id, category_id),
+    CONSTRAINT project_category_service_project_id_fkey FOREIGN KEY (service_project_id) REFERENCES service_project(service_project_id) ON DELETE CASCADE,
+    CONSTRAINT project_category_category_id_fkey FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
 );
 
 -- Associate each service project with one or more categories
