@@ -3,7 +3,9 @@
 <main>
     <h1><%= categoryDetails.name %></h1>
 
+    <% if (user && user.role_name === 'admin') { %>
     <p><a href="/edit-category/<%= categoryDetails.category_id %>">Edit</a></p>
+    <% } %>
 
     <h2>Service Projects</h2>
     <% if (projects.length > 0) { %>

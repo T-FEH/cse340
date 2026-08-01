@@ -3,7 +3,9 @@
 <main>
     <h2><%= organizationDetails.name %></h2>
 
+    <% if (user && user.role_name === 'admin') { %>
     <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit</a></p>
+    <% } %>
 
     <img class="main-logo" src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
 

@@ -96,3 +96,31 @@ VALUES
     ((SELECT service_project_id FROM service_project WHERE name = 'Senior Center Visits'), (SELECT category_id FROM category WHERE name = 'Health and Wellness')),
     ((SELECT service_project_id FROM service_project WHERE name = 'Clothing Donation Drive'), (SELECT category_id FROM category WHERE name = 'Community Service')),
     ((SELECT service_project_id FROM service_project WHERE name = 'Youth Mentorship Program'), (SELECT category_id FROM category WHERE name = 'Educational'));
+
+-- Create the roles table for role-based access control
+CREATE TABLE roles (
+    role_id SERIAL,
+    role_name VARCHAR(50) NOT NULL,
+    role_description TEXT,
+    CONSTRAINT roles_pkey PRIMARY KEY (role_id),
+    CONSTRAINT roles_role_name_key UNIQUE (role_name)
+);
+
+-- Insert the initial roles
+INSERT INTO roles (role_name, role_description)
+VALUES
+    ('user', 'Standard user with basic access'),
+    ('admin', 'Administrator with full system access');
+
+-- Create the users table, which references the roles table
+CREATE TABLE users (
+    user_id SERIAL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT users_pkey PRIMARY KEY (user_id),
+    CONSTRAINT users_email_key UNIQUE (email),
+    CONSTRAINT users_role_id_fkey FOREIGN KEY (role_id) REFERENCES roles(role_id)
+);
